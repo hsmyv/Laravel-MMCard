@@ -14,16 +14,12 @@ class Userinformation extends Model
      *
      * @var string[]
      */
-        protected $fillable = ['username','user_id', 'profilepicture','about','facebooklink', 'instagramlink', 'twitterlink'];
-       
+        protected $fillable = ['username','user_id', 'profilepicture','about','socialmedialink'];
+
 
         public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
-    }
-    public function userinformation(){
-
-        return $this->hasMany(Userinformation::class);
     }
 
 }

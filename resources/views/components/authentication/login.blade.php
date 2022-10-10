@@ -10,7 +10,7 @@
                             <form method="POST" action="{{route('login')}}">
                                 @csrf
                                 <div>
-                            <input name="email" type="text" class="intro-x login__input input input--lg border border-gray-300 block" placeholder="Email" >
+                            <input name="email" type="text" class="intro-x login__input input input--lg border border-gray-300 block" value="{{old('email')}}"  placeholder="Email" >
                             @error('email')
                             <p class="text-red-500 text-xs mt-1"> {{$message}} </p>
                                 @enderror

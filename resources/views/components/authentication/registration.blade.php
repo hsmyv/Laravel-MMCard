@@ -10,30 +10,30 @@
                             <form method="POST" action="{{route('registration')}}">
                                 @csrf
                             <div>
-                            <input name="firstname" type="text" class="intro-x login__input input input--lg border border-gray-300 block" placeholder="First Name">
+                            <input name="firstname" type="text" class="intro-x login__input input input--lg border border-gray-300 block" value="{{old('firstname')}}" placeholder="First Name">
                             @error('firstname')
                             <p class="text-red-500 text-xs mt-1"> {{$message}} </p>
                                 @enderror
                             </div>
                             <div>
-                            <input name ="lastname" type="text" class="intro-x login__input input input--lg border border-gray-300 block mt-4" placeholder="Last Name">
+                            <input name ="lastname" type="text" class="intro-x login__input input input--lg border border-gray-300 block mt-4" value="{{old('lastname')}}" placeholder="Last Name">
                             @error('lastname')
                             <p class="text-red-500 text-xs mt-1"> {{$message}} </p>
                                 @enderror
                             </div>
                             <div>
-                            <input name ="email"   type="text" class="intro-x login__input input input--lg border border-gray-300 block mt-4" placeholder="Email">
+                            <input name ="email"   type="text" class="intro-x login__input input input--lg border border-gray-300 block mt-4" value="{{old('email')}}" placeholder="Email">
                             @error('email')
                             <p class="text-red-500 text-xs mt-1"> {{$message}} </p>
                                 @enderror
                             </div>
                             <div>
-                            <input name ="password" type="password" class="intro-x login__input input input--lg border border-gray-300 block mt-4" placeholder="Password">
+                            <input name ="password" type="password" class="intro-x login__input input input--lg border border-gray-300 block mt-4"  placeholder="Password">
                             @error('password')
                             <p class="text-red-500 text-xs mt-1"> {{$message}} </p>
                                 @enderror
                             </div>
-                            <input name="password_confirmation" type="password" class="intro-x login__input input input--lg border border-gray-300 block mt-4" placeholder="Password Confirmation">
+                            <input name="password_confirmation" type="password" class="intro-x login__input input input--lg border border-gray-300 block mt-4"  placeholder="Repeat Password">
                         </div>
                         <div class="intro-x flex items-center text-gray-700 dark:text-gray-600 mt-4 text-xs sm:text-sm">
                             <input type="checkbox" class="input border mr-2" id="remember-me">

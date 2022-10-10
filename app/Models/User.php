@@ -47,6 +47,10 @@ class User extends Authenticatable
 
     public function userinformation()
     {
-        return $this->hasMany(Userinformation::class);
+        return $this->hasOne(Userinformation::class);
+    }
+    public function socialmedialink()
+    {
+        return $this->hasMany(socialmedialink::class);
     }
 }

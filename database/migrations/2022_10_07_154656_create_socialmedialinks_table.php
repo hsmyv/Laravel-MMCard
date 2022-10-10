@@ -13,13 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('userinformations', function (Blueprint $table) {
+        Schema::create('socialmedialinks', function (Blueprint $table) {
             $table->id();
-            $table->string('username')->unique();
             $table->unsignedBigInteger('user_id')->constrained()->cascadeOnDelete();
-            $table->integer('phone');
-            $table->text('about');
-            $table->string('profilepicture')->nullable();
+            $table->string('socialmedialink');
             $table->timestamps();
         });
     }
@@ -31,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('userinformations');
+        Schema::dropIfExists('socialmedialinks');
     }
 };

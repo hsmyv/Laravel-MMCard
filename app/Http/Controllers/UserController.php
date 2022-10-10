@@ -5,60 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Userinformation;
+use App\Models\socialmedialink;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use DB;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\URL;
+use Validator;
 class UserController extends Controller
 {
-    public function showlogin(){
-        return view('components.authentication.login');
-    }
-
-    public function showregistration(){
-        return view('components.authentication.registration');
-    }
-
-    public function showuserfillaccount(){
-        return view('pages.userfillaccount');
-    }
-    public function showuserprofile(User $user){
-        $id = Auth::user()->id;
-        $user = User::find($id);
-        if (Auth::check()) {
-            // The user is logged in...
-            return view('pages.userprofile', [
-            'user' => $user,
-            'userinformation' => Userinformation::where('user_id', $id)->first()
-        ], compact('user') );
-        }
-    }
-
-    public function publishprofile(User $user, Userinformation $userinformation){
-        $id = Auth::user()->id;
-        return view('pages.usersocialmediaprofile', [
-            'token' => $user->token,
-            'userinformation' => Userinformation::where('user_id', $id)->first()
-
-        ]);
-
-    }
-    public function showedituserfillaccount(Request $request, User $user, Userinformation $userinformation){
-        $id = Auth::user()->id;
-        $user = User::find($id);
-        return view('pages.edituserfillaccount',  [
-            'userinformation' => $userinformation,
-            'userinformation' => Userinformation::where('user_id', $id)
-            ->first()]);
-    }
-
-
-
-
-
-
     public function registration(Request $request){
 
 
@@ -83,7 +39,7 @@ class UserController extends Controller
 
         return redirect()->route('showuserfillaccount')->with('success', 'Your account has been created successfully');
     }
-    public function login(Request $request){
+    public function login(Request $request, Userinformation $userinformation){
 
         $formfill = $request->validate([
             'email' => 'required|exists:users,email',
@@ -93,7 +49,7 @@ class UserController extends Controller
 
         if(auth()->attempt($formfill)){
             session()->regenerate();
-            return redirect()->route('showuserprofile', ['user' => Auth::user()->id])->with('success', 'You have been login');
+            return redirect()->route('showuserprofile', ['username', $userinformation->username])->with('success', 'You have been login');
 
         }
 
@@ -113,50 +69,116 @@ class UserController extends Controller
 
 
     public function userfillaccount(Request $request){
-
+        $user = Auth()->user();
         $formfill = $request->validate([
             'username' => 'required|unique:userinformations,username',
             'about' => 'required|max:250',
             'profilepicture' => 'file|mimes:jpg,png,img,jpeg',
-            'facebooklink' => 'required|min:5',
-            'twitterlink' => 'required|min:5',
-            'instagramlink' => 'required|min:5',
-
+            'phone' => 'required|string|min:8|max:13'
         ]);
 
-        $formfill['user_id'] = auth()->id();
+        $formfill['user_id'] = Auth()->id();
 
         if(isset($formfill['profilepicture'])){
             $formfill['profilepicture'] = request()->file('profilepicture')->store('profilepictures');
+        }
+
+        $request->validate([
+            'addmore.*.socialmedialink' => 'required',
+
+        ]);
+
+
+        foreach ($request->addmore as $key => $value) {
+
+            socialmedialink::create($value);
+
         }
 
         Userinformation::create($formfill);
-
-        return redirect()->route('showuserprofile', ['user' => Auth::user()->id])->with('success', 'Your account has been created successfully');
+        return redirect()->route('showuserprofile', ['username' => $user->userinformation->username])->with('success', 'Your account has been created successfully');
     }
 
-    public function edituserfillaccount(Userinformation $userinformation){
-
-        $formfill = request()->validate([
+    public function edituserfillaccount(Request $request, Userinformation $userinformation ){
+        $user = Auth()->user();
+        $formfill = $request->validate([
             'username' => ['required', Rule::unique('userinformations', 'username')->ignore($userinformation->id)],
             'about' => 'required|max:250',
-            'profilepicture' => 'file|mimes:jpg,png,img,jpeg',
-            'facebooklink' => 'required|min:5',
-            'twitterlink' => 'required|min:5',
-            'instagramlink' => 'required|min:5',
+        ]);
+
+          $request->validate([
+            'addmore.*.socialmedialink' => 'required',
 
         ]);
 
-        if(isset($formfill['profilepicture'])){
-            $formfill['profilepicture'] = request()->file('profilepicture')->store('profilepictures');
-        }
 
-        //doesn't work
+
+        foreach ($request->addmore as $key => $value) {
+            socialmedialink::create($value);
+
+            }
+
+
+       if(isset($formfill['profilepicture'])){
+         $formfill['profilepicture'] = request()->file('profilepicture')->store('profilepictures');
+       }
+
         $userinformation->update($formfill);
 
-        return redirect()->route('showuserprofile', ['user' => Auth::user()->id] )->with('success', 'Your post has been updated successfully');
+        return redirect()->route('showuserprofile', ['username' => $user->userinformation->username] )->with('success', 'Your post has been updated successfully');
+    }
+
+
+    public function insert(Request $request)
+    {
+        $formill = $request->validate([
+            'addmore.*.socialmedialink' => 'required',
+
+        ]);
+
+
+        foreach ($request->addmore as $key => $value) {
+            socialmedialink::create($value);
+        }
+
+        return back()->with('success', 'Record Created Successfully.');
     }
 
 
 
-}
+    /*
+    public function insert(Request $request){
+
+        if($request->ajax())
+        {
+            $rules = array(
+                'socialmedialink.*' => 'required'
+            );
+            $error = validator::make($request->all(),$rules);
+            if($error->fails())
+            {
+                return response()->json([
+                    'error' => $error->errors()->all()
+                ]);
+            }
+            $socialmedialink = $request->socialmedialink;
+            for($count = 0; $coun < count($socialmedialink); $count++)
+            {
+                $data = array(
+                    'socialmedialink' => $socialmedialink[$count]
+                );
+                $insert_data[] = $data;
+            }
+
+            socialmedialinks::insert($insert_data);
+            return response()->json([
+                'success' => 'Data add successfully'
+            ]);
+        }
+
+
+        }*/
+
+    }
+
+

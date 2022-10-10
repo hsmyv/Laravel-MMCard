@@ -13,9 +13,6 @@ use Hash;
 class ForgetPasswordController extends Controller
 {
 
-    public function showforgetpassword(){
-        return view('components.authentication.resetpassword');
-    }
 
     Public function forgetpasswordlink(Request $request){
         $request->validate([
@@ -38,15 +35,6 @@ class ForgetPasswordController extends Controller
     }
 
 
-    public function showresetpassword(Request $request, $token = null){
-
-        {
-            $token = $request->token;
-
-           return view('components.authentication.fillresetpassword')->with(
-            ['token' => $token, 'email' => $request->email ]);
-        }
-    }
 
     public function submitresetpassword(Request $request){
         $request->validate([
@@ -69,8 +57,8 @@ class ForgetPasswordController extends Controller
         $user = User::where('email', $request->email)
                     ->update(['password' => Hash::make($request->password)]);
 
-       
-       // DB::table('password_resets')->where(['email', $request->email])->delete();
+
+        DB::table('password_resets')->where('email', $request->email)->delete();
         return redirect()->route('showlogin')->with('success', 'Your password has been changed!');
     }
 }

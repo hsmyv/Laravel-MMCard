@@ -50,7 +50,7 @@
                                                 <div class="p-2 border-t border-theme-40 dark:border-dark-3">
                                                     <form method="POST" action="{{route('logout')}}">
                                                         @csrf
-                                                    <a class="flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 dark:hover:bg-dark-3 rounded-md"> <i data-feather="toggle-right" class="w-4 h-4 mr-2"></i> <button type="submit">Logout</button> </a>
+                                                    <a class="flex items-center block p-2 transition duration-300 ease-in-out hover:bg-theme-1 dark:hover:bg-dark-3 rounded-md"> <i data-feather="toggle-right" class="w-4 h-4 mr-2"></i><button type="submit" >Logout</button> </a>
                                                     </form>
                                                 </div>
                                             </div>
@@ -83,7 +83,7 @@
                             </div>
                             <div class="p-5 border-t border-gray-200 dark:border-dark-5">
                                 <a class="flex items-center" href=""> <i data-feather="activity" class="w-4 h-4 mr-2"></i> Personal Information </a>
-                                <a class="flex items-center mt-5" href="{{route('showedituserfillaccount', $userinformation->id)}}"> <i data-feather="box" class="w-4 h-4 mr-2"></i> Account Settings </a>
+                                <a class="flex items-center mt-5" href="{{route('showedituserfillaccount', $userinformation->username)}}"> <i data-feather="box" class="w-4 h-4 mr-2"></i> Account Settings </a>
                                 <a class="flex items-center mt-5" href="{{route('showforgetpassword')}}"> <i data-feather="lock" class="w-4 h-4 mr-2"></i> Change Password </a>
                                 <a class="flex items-center mt-5" href=""> <i data-feather="settings" class="w-4 h-4 mr-2"></i> User Settings </a>
                             </div>
@@ -114,7 +114,7 @@
                                     Social Media Links
 
                                 </h2>
-                                <div class="font-medium text-gray-700 dark:text-gray-500"> <a href = "{{route('showedituserfillaccount', $userinformation->id)}}"><button type="button" class="button button--sm block bg-theme-1 text-white">Edit</button></a></div>
+                                <div class="font-medium text-gray-700 dark:text-gray-500"> <a href = "{{route('showedituserfillaccount', $userinformation->username)}}"><button type="button" class="button button--sm block bg-theme-1 text-white">Edit</button></a></div>
                             </div>
                             <div class="p-5">
                                 <div class="relative flex items-center">
@@ -122,8 +122,8 @@
                                         <img alt="Midone Tailwind HTML Admin Template" class="rounded-full" src="/dist/images/profile-4.jpg">
                                     </div>
                                     <div class="ml-4 mr-auto">
-                                        <a href="{{$userinformation->facebooklink}}" class="font-medium">Facebook</a>
-                                        <div class="text-gray-600 mr-5 sm:mr-5">{{$userinformation->facebooklink}}</div>
+                                        <a href="{{$userinformation->socialmedialink}}" class="font-medium">Facebook</a>
+                                        <div class="text-gray-600 mr-5 sm:mr-5">{{$userinformation->socialmedialink}}</div>
                                     </div>
                                 </div>
                                 <div class="relative flex items-center mt-5">
@@ -155,7 +155,7 @@
                                     About your information
 
                                 </h2>
-                                <div class="font-medium text-gray-700 dark:text-gray-500"> <a href = "{{route('showedituserfillaccount', $userinformation->id)}}"><button type="button" class="button button--sm block bg-theme-1 text-white">Edit</button></a></div>
+                                <div class="font-medium text-gray-700 dark:text-gray-500"> <a href = "{{route('showedituserfillaccount', $userinformation->username)}}"><button type="button" class="button button--sm block bg-theme-1 text-white">Edit</button></a></div>
                             </div>
                             <div class="p-5">
                                 <p>{{$userinformation->about}}</p>
