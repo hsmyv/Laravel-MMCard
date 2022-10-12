@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\socialmedialink;
 use App\Models\Userinformation;
 use Illuminate\Support\Facades\Auth;
 
@@ -50,15 +51,21 @@ class RouteController extends Controller
             'userinformation' => $userinformation,
             'userinformation' => Userinformation::where('user_id', $id)
             ->first(),
-            'socialmedialinks' => $user->socialmedialink
+            'socialmedialinks' => $user->socialmedialinks
 
         ]);
-
-
     }
+    public function showeditsocialmedialinks(Request $request, User $user, Userinformation $userinformation){
+        $id = Auth::user()->id;
+        $user = User::find($id);
+        return view('pages.editsocialmedialinks',  [
+            'userinformation' => $userinformation,
+            'userinformation' => Userinformation::where('user_id', $id)
+            ->first(),
+            'socialmedialinks' => $user->socialmedialinks
 
-
-
+        ]);
+    }
 
 
     //userProfile
@@ -67,19 +74,34 @@ class RouteController extends Controller
         if (Auth::check()) {
             return view('pages.userprofile', [
             'user' => $user,
-            'userinformation' => $user->userinformation
+            'userinformation' => $user->userinformation,
+            'socialmedialinks' => $user->socialmedialinks
         ]);
         }
     }
 
     public function publishprofile(User $user){
         $id = Auth::user()->id;
+
         return view('pages.usersocialmediaprofile', [
             'token' => $user->token,
-            'userinformation' => Userinformation::where('user_id', $id)->first()
-
+            'userinformation' => userinformation::find($user->id),
+            'datas' => Socialmedialink::where('user_id', $user->id)->get()
         ]);
     }
+
+    public function clicklink(Request $request){
+
+
+        //dd($linkid);
+        $linkid = $request->get('link');
+       socialmedialink::where('id', $linkid)->increment('views');
+
+
+      //return Redirect::away($socialmedialink);
+        //return redirect()->away($socialmedialink);
+    }
+
 
 
     //userForgotPassword

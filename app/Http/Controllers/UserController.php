@@ -74,26 +74,24 @@ class UserController extends Controller
             'username' => 'required|unique:userinformations,username',
             'about' => 'required|max:250',
             'profilepicture' => 'file|mimes:jpg,png,img,jpeg',
-            'phone' => 'required|string|min:8|max:13'
+            'phone' => 'required|string|min:3|max:10',
         ]);
 
         $formfill['user_id'] = Auth()->id();
-
         if(isset($formfill['profilepicture'])){
             $formfill['profilepicture'] = request()->file('profilepicture')->store('profilepictures');
         }
 
-        $request->validate([
-            'addmore.*.socialmedialink' => 'required',
+        $socialmedia = $request->socialmedialink;
+            for($i=0; $i < count($socialmedia); $i++){
+                $datasave = [
+                    'user_id' => $user->id,
+                    'views' => 0,
+                    'socialmedialink' => $socialmedia[$i]
+                ];
 
-        ]);
-
-
-        foreach ($request->addmore as $key => $value) {
-
-            socialmedialink::create($value);
-
-        }
+                DB::table('socialmedialinks')->insert($datasave);
+            }
 
         Userinformation::create($formfill);
         return redirect()->route('showuserprofile', ['username' => $user->userinformation->username])->with('success', 'Your account has been created successfully');
@@ -103,21 +101,10 @@ class UserController extends Controller
         $user = Auth()->user();
         $formfill = $request->validate([
             'username' => ['required', Rule::unique('userinformations', 'username')->ignore($userinformation->id)],
+            'profilepicture' => 'image',
+            'phone' => 'required|string|min:8|max:13',
             'about' => 'required|max:250',
         ]);
-
-          $request->validate([
-            'addmore.*.socialmedialink' => 'required',
-
-        ]);
-
-
-
-        foreach ($request->addmore as $key => $value) {
-            socialmedialink::create($value);
-
-            }
-
 
        if(isset($formfill['profilepicture'])){
          $formfill['profilepicture'] = request()->file('profilepicture')->store('profilepictures');
@@ -128,57 +115,27 @@ class UserController extends Controller
         return redirect()->route('showuserprofile', ['username' => $user->userinformation->username] )->with('success', 'Your post has been updated successfully');
     }
 
+    public function editsocialmedialinks(Request $request, socialmedialink $socialmedialinks ){
+            $user = Auth()->user();
+        DB::table('socialmedialinks')->where('user_id', $user->id)->delete();
+            $socialmedia = $request->socialmedialink;
+            for($i=0; $i < count($socialmedia); $i++){
+                $datasave = [
+                    'user_id' => $user->id,
+                    'socialmedialink' => $socialmedia[$i]
+                ];
 
-    public function insert(Request $request)
-    {
-        $formill = $request->validate([
-            'addmore.*.socialmedialink' => 'required',
-
-        ]);
-
-
-        foreach ($request->addmore as $key => $value) {
-            socialmedialink::create($value);
-        }
-
-        return back()->with('success', 'Record Created Successfully.');
-    }
-
-
-
-    /*
-    public function insert(Request $request){
-
-        if($request->ajax())
-        {
-            $rules = array(
-                'socialmedialink.*' => 'required'
-            );
-            $error = validator::make($request->all(),$rules);
-            if($error->fails())
-            {
-                return response()->json([
-                    'error' => $error->errors()->all()
-                ]);
-            }
-            $socialmedialink = $request->socialmedialink;
-            for($count = 0; $coun < count($socialmedialink); $count++)
-            {
-                $data = array(
-                    'socialmedialink' => $socialmedialink[$count]
-                );
-                $insert_data[] = $data;
+                DB::table('socialmedialinks')->insert($datasave);
             }
 
-            socialmedialinks::insert($insert_data);
-            return response()->json([
-                'success' => 'Data add successfully'
-            ]);
-        }
-
-
-        }*/
-
+        return redirect()->route('showuserprofile', ['username' => $user->userinformation->username] )->with('success', 'Your post has been updated successfully');
     }
 
+    public function deletesocialmedialink(Socialmedialink $socialmedialink ){
+
+        $socialmedialink->delete();
+        return back()->with('success', 'Deleted');
+    }
+
+}
 

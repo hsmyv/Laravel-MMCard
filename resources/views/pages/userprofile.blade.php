@@ -5,9 +5,6 @@
         <meta charset="utf-8">
         <link href="/dist/images/logo.svg" rel="shortcut icon">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="Midone admin is super flexible, powerful, clean & modern responsive tailwind admin template with unlimited possibilities.">
-        <meta name="keywords" content="admin template, Midone admin template, dashboard template, flat admin template, responsive admin template, web app">
-        <meta name="author" content="LEFT4CODE">
         <title>User Profile</title>
         <!-- BEGIN: CSS Assets-->
         <link rel="stylesheet" href="/dist/css/app.css" />
@@ -33,7 +30,7 @@
                                 <div class="w-12 h-12 image-fit">
                                     <div class="intro-x dropdown w-8 h-8">
                                         <div class="dropdown-toggle w-8 h-8 rounded-full overflow-hidden shadow-lg image-fit zoom-in">
-                                            <img alt="Midone Tailwind HTML Admin Template" src="/dist/images/profile-1.jpg">
+                                            <img alt="Midone Tailwind HTML Admin Template" src="{{ asset('storage/' .$userinformation->profilepicture)}}">
                                         </div>
                                         <div class="dropdown-box w-56">
                                             <div class="dropdown-box__content box bg-theme-38 dark:bg-dark-6 text-white">
@@ -89,7 +86,7 @@
                             </div>
 
                             <div class="p-5 border-t flex">
-                                <button  type="button" class="button button--sm block bg-theme-1 text-white"><a href="{{route('publishprofile', auth()->user()->token)}}">View Your Profile</a></button>
+                                <button  type="button" class="button button--sm block bg-theme-1 text-white"><a href="{{route('publishprofile', ['username' => $userinformation->username, 'token' => auth()->user()->token])}}">View Your Profile</a></button>
                             </div>
                         </div>
                         <div class="p-5 border-t border-gray-200 dark:border-dark-5">
@@ -114,37 +111,20 @@
                                     Social Media Links
 
                                 </h2>
-                                <div class="font-medium text-gray-700 dark:text-gray-500"> <a href = "{{route('showedituserfillaccount', $userinformation->username)}}"><button type="button" class="button button--sm block bg-theme-1 text-white">Edit</button></a></div>
+                                <div class="font-medium text-gray-700 dark:text-gray-500"> <a href = "{{route('showeditsocialmedialinks', $userinformation->username)}}"><button type="button" class="button button--sm block bg-theme-1 text-white">Edit</button></a></div>
                             </div>
                             <div class="p-5">
-                                <div class="relative flex items-center">
-                                    <div class="w-12 h-12 flex-none image-fit">
-                                        <img alt="Midone Tailwind HTML Admin Template" class="rounded-full" src="/dist/images/profile-4.jpg">
-                                    </div>
-                                    <div class="ml-4 mr-auto">
-                                        <a href="{{$userinformation->socialmedialink}}" class="font-medium">Facebook</a>
-                                        <div class="text-gray-600 mr-5 sm:mr-5">{{$userinformation->socialmedialink}}</div>
-                                    </div>
-                                </div>
+                                @foreach ($socialmedialinks as $socialmedialink )
                                 <div class="relative flex items-center mt-5">
                                     <div class="w-12 h-12 flex-none image-fit">
-                                        <img alt="Midone Tailwind HTML Admin Template" class="rounded-full" src="/dist/images/profile-8.jpg">
+                                        <img alt="" class="rounded-full" src ="">
                                     </div>
                                     <div class="ml-4 mr-auto">
-                                        <a href="{{$userinformation->instagramlink}}" class="font-medium">Instagram</a>
-                                        <div class="text-gray-600 mr-5 sm:mr-5">{{$userinformation->instagramlink}}</div>
+                                        <a href="{{$socialmedialink->socialmedialink}}" class="font-medium">{{$socialmedialink->socialmedialink}}</a>
+                                        <div class="text-gray-600 mr-5 sm:mr-5">{{$socialmedialink->socialmedialink}}</div>
                                     </div>
                                 </div>
-                                <div class="relative flex items-center mt-5">
-                                    <div class="w-12 h-12 flex-none image-fit">
-                                        <img alt="Midone Tailwind HTML Admin Template" class="rounded-full" src="/dist/images/profile-9.jpg">
-                                    </div>
-                                    <div class="ml-4 mr-auto">
-                                        <a href="{{$userinformation->twitterlink}}" class="font-medium">Twitter</a>
-                                        <div class="text-gray-600 mr-5 sm:mr-5">{{$userinformation->twitterlink}}</div>
-
-                                    </div>
-                                </div>
+                                @endforeach
                             </div>
                         </div>
                         <!-- END: Social Media Link -->
@@ -157,9 +137,18 @@
                                 </h2>
                                 <div class="font-medium text-gray-700 dark:text-gray-500"> <a href = "{{route('showedituserfillaccount', $userinformation->username)}}"><button type="button" class="button button--sm block bg-theme-1 text-white">Edit</button></a></div>
                             </div>
+
+                            <div class="p-5">
+                                <p>{{$userinformation->username}}</p>
+                            </div>
+
                             <div class="p-5">
                                 <p>{{$userinformation->about}}</p>
                             </div>
+                            <div class="p-5">
+                                <p>+994{{$userinformation->phone}}</p>
+                            </div>
+
                         </div>
                         <!-- END: Social Media Link -->
                     </div>

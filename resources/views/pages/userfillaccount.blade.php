@@ -39,11 +39,11 @@
                             @enderror
                         </div>
 
-
                         <div id = "dynamicTable">
                       <div>
-                        <a>Add your social media profiles:</a>
-                          <input name="addmore[0][socialmedialink]" type="text" class="intro-x login__input input input--lg border border-gray-300 block mt-4" value="{{old('socialmedialink')}}" placeholder="Add socialmedia profile link">
+                        <br>
+                        <a>Add social media profiles:</a>
+                          <input name="socialmedialink[]" type="text" class="intro-x login__input input input--lg border border-gray-300 block mt-4" value="{{old('socialmedialink')}}" placeholder="Add socialmedia profile link">
                           @error('socialmedialink')
                           <p class="text-red-500 text-xs mt-1"> {{$message}} </p>
                               @enderror
@@ -71,7 +71,7 @@
 
                 ++i;
 
-                $("#dynamicTable").append('<tr><td><input class="intro-x login__input input input--lg border border-gray-300 block mt-4 type="text" name="addmore['+i+'][socialmedialink]" placeholder="Add social media profile link" </td><td><button type="button" class="button button--lg w-full xl:w-25 text-gray-700 border border-gray-300 dark:border-dark-5 dark:text-gray-300 xl:mt-0  remove-tr">Remove</button></td></tr>');
+                $("#dynamicTable").append('<tr><td><input class="intro-x login__input input input--lg border border-gray-300 block mt-4 type="text" name="socialmedialink[]" placeholder="Add social media profile link" </td><td><button type="button" class="button button--lg w-full xl:w-25 text-gray-700 border border-gray-300 dark:border-dark-5 dark:text-gray-300 xl:mt-0  remove-tr">Remove</button></td></tr>');
             });
 
             $(document).on('click', '.remove-tr', function(){

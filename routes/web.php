@@ -22,10 +22,8 @@ use App\Models\Post;
 Route::redirect('/', '/home');
 
 Route::get('/home', function(Userinformation $userinformation){
-    $user = Auth()->user();
     return view('pages.home',
-        ['userinformation' => $user->userinformation],
-        compact('userinformation')
+        ['userinformation' => $userinformation]
         );
 
 });
@@ -44,10 +42,14 @@ Route::get('/home', function(Userinformation $userinformation){
         Route::get('/registration', 'showregistration')->middleware('guest')->name('showregistration');
         //useProfile
         Route::get('/userprofile/{username}', 'showuserprofile')->middleware('auth')->name('showuserprofile');
-        Route::get('/userprofile/user/{token}', 'publishprofile')->name('publishprofile');
+        Route::get('/userprofile/{username:username}/{token}/', 'publishprofile')->name('publishprofile');
+        Route::get('/socialmedialink', 'clicklink')->name('clicklink');
+
         //userAccount
         Route::get('/userfillaccount/', 'showuserfillaccount')->middleware('auth')->name('showuserfillaccount');
         Route::get('/edituserfillaccount/{username}/edit/', 'showedituserfillaccount')->middleware('auth')->name('showedituserfillaccount');
+        Route::get('/editsocialmedialinks/{username}/edit/', 'showeditsocialmedialinks')->middleware('auth')->name('showeditsocialmedialinks');
+
         //userForgotPassword
         Route::get('/forgetpassword', 'showforgetpassword')->name('showforgetpassword');
         Route::get('/resetpassword/{token}', 'showresetpassword')->name('showresetpassword');
@@ -64,6 +66,9 @@ Route::get('/home', function(Userinformation $userinformation){
         //userAccount
         Route::post('/userfillaccout', 'userfillaccount')->middleware('auth')->name('userfillaccount');
         Route::patch('/edituserfillaccounts/{userinformation:username}', 'edituserfillaccount')->middleware('auth')->name('edituserfillaccount');
+        Route::patch('/editsocialmedialinks', 'editsocialmedialinks')->middleware('auth')->name('editsocialmedialinks');
+        Route::delete('/deletesocialmedialink/{socialmedialink}', 'deletesocialmedialink')->middleware('auth')->name('deletesocialmedialink');
+
     });
 
 

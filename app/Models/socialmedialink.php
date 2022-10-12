@@ -8,12 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class socialmedialink extends Model
 {
     use HasFactory;
+    public function scopeFilter($query, array $filters)
+    {
+            $query->when($filters['user'] ?? false);
+    }
+
 
     public $table = "socialmedialinks";
 
-    protected $fillable = ['socialmedialink','user_id'];
+    protected $fillable = ['socialmedialink', 'user_id' , 'views'];
 
-    public function socialmedialink()
+    public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
     }

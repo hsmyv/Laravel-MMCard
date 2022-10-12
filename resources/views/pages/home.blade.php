@@ -1,2 +1,2 @@
-<a href = '{{route('showuserprofile', $userinformation->username)}}'>Account</a>
+<a href = '{{route('showuserprofile',  $userinformation->username ?? 'None')}}'>Account</a>
 

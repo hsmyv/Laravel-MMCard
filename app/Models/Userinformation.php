@@ -17,9 +17,14 @@ class Userinformation extends Model
         protected $fillable = ['username','user_id', 'profilepicture','about','socialmedialink'];
 
 
-        public function user()
+      //  public function user()
+   // {
+   //     return $this->belongsTo(User::class,'user_id');
+   // }
+         public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
 
 }

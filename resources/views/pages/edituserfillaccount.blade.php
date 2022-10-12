@@ -9,7 +9,7 @@
                         <div class="intro-x mt-2 text-gray-500 xl:hidden text-center">Edit all your social medias on yor account. Manage all your social media accounts in one place</div>
                         <div class="intro-x mt-8">
 
-                            <form id="dynamic_form" method="POST" action="{{route('edituserfillaccount', $userinformation->username)}}" enctype="multipart/form-data">
+                            <form method="POST" action="{{route('edituserfillaccount', $userinformation->username)}}" enctype="multipart/form-data">
                                 @csrf
                                 @method('PATCH')
                             <div>
@@ -18,6 +18,14 @@
                         <p class="text-red-500 text-xs mt-1"> {{$message}} </p>
                             @enderror
                         </div>
+
+                        <div>
+                            <input name="phone" type="text" class="intro-x login__input input input--lg border border-gray-300 block mt-4" value="{{old("phone", $userinformation->phone)}}" placeholder="+994">
+                            @error('phone')
+                        <p class="text-red-500 text-xs mt-1"> {{$message}} </p>
+                            @enderror
+                        </div>
+
                             <div>
                             <input name="profilepicture" type="file" class="intro-x login__input input input--lg border border-gray-300 block mt-4"  value="{{old('profilepicture', $userinformation->profilepicture)}}">
                             @error('profilepicture')
@@ -30,20 +38,6 @@
                             @error('about')
                         <p class="text-red-500 text-xs mt-1"> {{$message}} </p>
                             @enderror
-                        </div>
-                        <a>Add your social media profiles:</a>
-                          <div id = "dynamicTable">
-                        <div>
-
-                            @foreach ($socialmedialinks as $socialmedialink )
-
-                            <input name="addmore[0][socialmedialink]" type="text" class="intro-x login__input input input--lg border border-gray-300 block mt-4" value="{{$socialmedialink->socialmedialink}}" placeholder="Add socialmedia profile link">
-                                @endforeach
-                            @error('socialmedialink')
-                            <p class="text-red-500 text-xs mt-1"> {{$message}} </p>
-                                @enderror
-                         </div>
-                         <button type="button" name="add" id="add" class="button xl:w-32 text-white bg-theme-1 xl:mr-3 align-top mt-2 btn btn-success">Add</button>
                         </div>
 
 
@@ -60,20 +54,4 @@
                 <!-- END: Login Form -->
             </div>
         </div>
-        <script type="text/javascript">
-
-            var i = 0;
-
-            $("#add").click(function(){
-
-                ++i;
-
-                $("#dynamicTable").append('<tr><td><input class="intro-x login__input input input--lg border border-gray-300 block mt-4 type="text" name="addmore['+i+'][socialmedialink]" placeholder="Add social media profile link" </td><td><button type="button" class="button button--lg w-full xl:w-25 text-gray-700 border border-gray-300 dark:border-dark-5 dark:text-gray-300 xl:mt-0  remove-tr">Remove</button></td></tr>');
-            });
-
-            $(document).on('click', '.remove-tr', function(){
-                 $(this).parents('tr').remove();
-            });
-
-        </script>
     </x-authentication.layout>

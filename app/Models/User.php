@@ -49,7 +49,7 @@ class User extends Authenticatable
     {
         return $this->hasOne(Userinformation::class);
     }
-    public function socialmedialink()
+    public function socialmedialinks()
     {
         return $this->hasMany(socialmedialink::class);
     }

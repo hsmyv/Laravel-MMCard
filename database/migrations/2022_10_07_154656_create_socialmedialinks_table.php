@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id')->constrained()->cascadeOnDelete();
             $table->string('socialmedialink');
+            $table->integer('views')->default(0);
             $table->timestamps();
         });
     }

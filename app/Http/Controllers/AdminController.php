@@ -7,6 +7,6 @@ use App\Models\User;
 use App\Models\Userinformation;
 class AdminController extends Controller
 {
-   
+
 
 }
