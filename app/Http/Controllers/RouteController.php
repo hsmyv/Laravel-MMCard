@@ -92,14 +92,10 @@ class RouteController extends Controller
 
     public function clicklink(Request $request){
 
-
-        //dd($linkid);
+        //increment each link views
         $linkid = $request->get('link');
        socialmedialink::where('id', $linkid)->increment('views');
 
-
-      //return Redirect::away($socialmedialink);
-        //return redirect()->away($socialmedialink);
     }
 
 
