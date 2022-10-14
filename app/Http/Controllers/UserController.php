@@ -10,6 +10,7 @@ use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Auth;
 use DB;
+use Hash;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\URL;
 use Validator;
@@ -74,7 +75,7 @@ class UserController extends Controller
             'username' => 'required|unique:userinformations,username',
             'about' => 'required|max:250',
             'profilepicture' => 'file|mimes:jpg,png,img,jpeg',
-            'phone' => 'required|string|min:3|max:10',
+            'phone' => 'required|string|min:9|max:10',
         ]);
 
         $formfill['user_id'] = Auth()->id();
@@ -102,7 +103,7 @@ class UserController extends Controller
         $formfill = $request->validate([
             'username' => ['required', Rule::unique('userinformations', 'username')->ignore($userinformation->id)],
             'profilepicture' => 'image',
-            'phone' => 'required|string|min:8|max:13',
+            'phone' => 'required|string|min:9|max:10',
             'about' => 'required|max:250',
         ]);
 
@@ -115,18 +116,17 @@ class UserController extends Controller
         return redirect()->route('showuserprofile', ['username' => $user->userinformation->username] )->with('success', 'Your post has been updated successfully');
     }
 
-    public function editsocialmedialinks(Request $request, socialmedialink $socialmedialinks ){
+    public function editsocialmedialinks(Request $request){
             $user = Auth()->user();
-        DB::table('socialmedialinks')->where('user_id', $user->id)->delete();
-            $socialmedia = $request->socialmedialink;
-            for($i=0; $i < count($socialmedia); $i++){
-                $datasave = [
-                    'user_id' => $user->id,
-                    'socialmedialink' => $socialmedia[$i]
-                ];
 
-                DB::table('socialmedialinks')->insert($datasave);
-            }
+                        foreach($request->estimates_adds as $key=>$items)
+                        {
+                            $estimates_adds['id']              = $request->estimates_adds[$key];
+                            $estimates_adds['user_id']         = $user->id;
+                            $estimates_adds['socialmedialink'] = $request->socialmedialink[$key];
+
+                            Socialmedialink::where('id', $request->estimates_adds[$key])->update($estimates_adds);
+                        }
 
         return redirect()->route('showuserprofile', ['username' => $user->userinformation->username] )->with('success', 'Your post has been updated successfully');
     }
@@ -135,6 +135,54 @@ class UserController extends Controller
 
         $socialmedialink->delete();
         return back()->with('success', 'Deleted');
+    }
+
+    public function changepassword(Request $request){
+        $data = $request->validate([
+            'oldpassword' => 'required|min:6',
+            'password' => 'required|string|min:6|confirmed',
+            'password_confirmation' => 'required'
+        ]);
+        $user = User::find(Auth()->user()->id);
+        if(!Hash::check($data['oldpassword'], $user->password)){
+            return back()->withInput()->with('success', 'Your password incorrect');
+        }else{
+
+       $user->update(['password' => Hash::make($request->password)]);
+        }
+
+
+        return redirect()->route('showuserprofile', ['username' => $user->userinformation->username])->with('success', 'Your password has been changed');
+
+    }
+
+    public function destroyimage($profilepicture){
+
+            $data = User::where('profilepicture' , $profilepicture)->first();
+            $image_path = public_path().'/'.$data->filename;
+            unlink($image_path);
+            $data->delete();
+            // if(Storage::delete($data->filename)) {
+            //     $data->delete();
+            //  }
+            return redirect('/avatars');
+
+    }
+
+    public function addsocialmedia(Request $request){
+        $user = Auth()->user();
+        $socialmedia = $request->socialmedialink;
+        for($i=0; $i < count($socialmedia); $i++){
+            $datasave = [
+                'user_id' => $user->id,
+                'views' => 0,
+                'socialmedialink' => $socialmedia[$i]
+            ];
+
+            DB::table('socialmedialinks')->insert($datasave);
+        }
+
+        return redirect()->route('showuserprofile', ['username' => $user->userinformation->username])->with('success', 'Social media profile has been added successfully');
     }
 
 }

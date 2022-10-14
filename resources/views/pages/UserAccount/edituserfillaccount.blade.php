@@ -12,6 +12,25 @@
                             <form method="POST" action="{{route('edituserfillaccount', $userinformation->username)}}" enctype="multipart/form-data">
                                 @csrf
                                 @method('PATCH')
+                                <div>
+                                    <div class="border border-gray-200 dark:border-dark-5 rounded-md p-5">
+                                        <div class="w-40 h-40 relative image-fit cursor-pointer zoom-in mx-auto">
+                                            @if(file_exists(public_path().'/storage/'.$userinformation->profilepicture))
+                                            <img class="rounded-md" src="{{asset('storage/' .$userinformation->profilepicture)}}">
+                                            @else
+                                            <img class="rounded-md"  src="/dist/images/profile-6.jpg">
+                                            @endif
+                                            <div title="Remove this profile photo?" name="{{$userinformation->profilpicture}}" class="tooltip w-5 h-5 flex items-center justify-center absolute rounded-full text-white bg-theme-6 right-0 top-0 -mr-2 -mt-2 buttonlink"> <i data-feather="x" class="w-4 h-4"></i> </div>
+                                        </div>
+                                        <div class="w-40 mx-auto cursor-pointer relative mt-5">
+                                            <button type="button" class="button w-full bg-theme-1 text-white">Change Photo</button>
+                                            <input name="profilepicture" type="file" class="w-full h-full top-0 left-0 absolute opacity-0">
+                                        </div>
+                                    </div>
+                                @error('profilepicture')
+                                <p class="text-red-500 text-xs mt-1"> {{$message}} </p>
+                                @enderror
+                            </div>
                             <div>
                             <input name="username" type="text" class="intro-x login__input input input--lg border border-gray-300 block" placeholder="Username" value="{{old('username' , $userinformation->username)}}">
                             @error('username')
@@ -22,13 +41,6 @@
                         <div>
                             <input name="phone" type="text" class="intro-x login__input input input--lg border border-gray-300 block mt-4" value="{{old("phone", $userinformation->phone)}}" placeholder="+994">
                             @error('phone')
-                        <p class="text-red-500 text-xs mt-1"> {{$message}} </p>
-                            @enderror
-                        </div>
-
-                            <div>
-                            <input name="profilepicture" type="file" class="intro-x login__input input input--lg border border-gray-300 block mt-4"  value="{{old('profilepicture', $userinformation->profilepicture)}}">
-                            @error('profilepicture')
                         <p class="text-red-500 text-xs mt-1"> {{$message}} </p>
                             @enderror
                         </div>

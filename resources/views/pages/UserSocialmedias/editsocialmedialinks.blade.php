@@ -11,13 +11,14 @@
 
                             <form id="dynamic_form" method="POST" action="{{route('editsocialmedialinks')}}">
                                 @csrf
-                                @method('PATCH')
+
+
                         <a>Add your social media profiles:</a>
                           <div id = "dynamicTable">
                         <div>
                             @foreach ($socialmedialinks as $socialmedialink )
-
-                            <input name="socialmedialink[]" type="text" class="intro-x login__input input input--lg border border-gray-300 block mt-4" value="{{$socialmedialink->socialmedialink}}" placeholder="Add socialmedia profile link">
+                            <input type="hidden" name="estimates_adds[]" value="{{$socialmedialink->id}}">
+                            <input type="url" name="socialmedialink[]" value="{{$socialmedialink->socialmedialink}}" type="text" class="intro-x login__input input input--lg border border-gray-300 block mt-4" value="{{$socialmedialink->socialmedialink}}" placeholder="Add socialmedia profile link">
                                 @endforeach
                             @error('socialmedialink')
                             <p class="text-red-500 text-xs mt-1"> {{$message}} </p>

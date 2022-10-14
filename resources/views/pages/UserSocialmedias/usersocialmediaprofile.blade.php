@@ -3,7 +3,7 @@
     <!-- BEGIN: Head -->
     <head>
         <meta charset="utf-8">
-        <link href="dist/images/logo.svg" rel="shortcut icon">
+        <link href="/dist/images/logo.svg" rel="shortcut icon">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="Midone admin is super flexible, powerful, clean & modern responsive tailwind admin template with unlimited possibilities.">
         <meta name="keywords" content="admin template, Midone admin template, dashboard template, flat admin template, responsive admin template, web app">
@@ -37,10 +37,11 @@
                 <div class="col-span-12 xl:col-span-4">
                     <div class="border border-gray-200 dark:border-dark-5 rounded-md p-12">
                         <div class="w-40 h-40 relative image-fit cursor-pointer zoom-in mx-auto">
-
-
-
-                            <img class="rounded-md" alt="Midone Tailwind HTML Admin Template" src="{{ asset('storage/' .$userinformation->profilepicture)}}">
+                            @if(file_exists(public_path().'/storage/'.$userinformation->profilepicture))
+                            <img class="rounded-md" src="{{ asset('storage/' .$userinformation->profilepicture)}}">
+                            @else
+                            <img class="rounded-md" src="/dist/images/profile-6.jpg">
+                            @endif
                         </div>
 
                     </div>
@@ -89,7 +90,7 @@
                                         <img alt="Midone Tailwind HTML Admin Template" class="rounded-full" src="/dist/images/profile-4.jpg">
                                     </div>
                                     <div class="ml-4 mr-auto">
-                                    <a class="buttonlink" href="{{$data->socialmedialink}}" value="" id="{{$data->id}}" name="link" class="font-medium">sdfdf</a>
+                                    <a class="buttonlink" href="{{$data->socialmedialink}}" value="" id="{{$data->id}}" name="link" class="font-medium">view</a>
                                     <div class="text-gray-600 mr-5 sm:mr-5">{{$data->socialmedialink}}</div>
                                     </div>
                                     <div class="font-medium text-gray-700 dark:text-gray-500"></div>
@@ -115,7 +116,7 @@
                 $(".buttonlink").on('click', function(){
                     var el = $(this);
 
-                    let linkid = $('#link').val();
+                   // let linkid = $('#link').val();
                     $.ajax({
                         url: '/socialmedialink',
                         method: 'GET',

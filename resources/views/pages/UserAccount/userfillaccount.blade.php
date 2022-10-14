@@ -54,7 +54,7 @@
 
                     </div>
                         <div class="intro-x mt-5 xl:mt-8 text-center xl:text-center">
-                            <button name="save" id="save" type="submit" class="button button--lg w-full xl:w-32 text-white bg-theme-1 xl:mr-3 align-top">Add</button>
+                            <button name="save" id="save" type="submit" class="button button--lg w-full xl:w-32 text-white bg-theme-1 xl:mr-3 align-top">Save</button>
                         </form>
 
                         </div>

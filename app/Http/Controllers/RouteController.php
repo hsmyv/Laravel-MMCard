@@ -13,7 +13,7 @@ class RouteController extends Controller
 {
     //admin
     public function dashboard(){
-        return view ('pages.admin.index');
+        return view ('pages.admin.index.index',['user' => Auth()->user()]);
     }
 
     public function users(User $user){
@@ -41,13 +41,13 @@ class RouteController extends Controller
 
     //userAccount
     public function showuserfillaccount(){
-        return view('pages.userfillaccount');
+        return view('pages.UserAccount.userfillaccount');
     }
 
     public function showedituserfillaccount(Request $request, User $user, Userinformation $userinformation){
         $id = Auth::user()->id;
         $user = User::find($id);
-        return view('pages.edituserfillaccount',  [
+        return view('pages.UserAccount.edituserfillaccount',  [
             'userinformation' => $userinformation,
             'userinformation' => Userinformation::where('user_id', $id)
             ->first(),
@@ -58,7 +58,7 @@ class RouteController extends Controller
     public function showeditsocialmedialinks(Request $request, User $user, Userinformation $userinformation){
         $id = Auth::user()->id;
         $user = User::find($id);
-        return view('pages.editsocialmedialinks',  [
+        return view('pages.UserSocialmedias.editsocialmedialinks',  [
             'userinformation' => $userinformation,
             'userinformation' => Userinformation::where('user_id', $id)
             ->first(),
@@ -72,7 +72,7 @@ class RouteController extends Controller
     public function showuserprofile(){
         $user = Auth()->user();
         if (Auth::check()) {
-            return view('pages.userprofile', [
+            return view('pages.UserProfile.userprofile', [
             'user' => $user,
             'userinformation' => $user->userinformation,
             'socialmedialinks' => $user->socialmedialinks
@@ -80,13 +80,14 @@ class RouteController extends Controller
         }
     }
 
-    public function publishprofile(User $user){
-        $id = Auth::user()->id;
+    public function publishprofile($username, $token){
 
-        return view('pages.usersocialmediaprofile', [
-            'token' => $user->token,
-            'userinformation' => userinformation::find($user->id),
-            'datas' => Socialmedialink::where('user_id', $user->id)->get()
+        $userinformation = Userinformation::where('username', $username)->firstOrFail();
+
+        return view('pages.UserSocialmedias.usersocialmediaprofile', [
+            'token' => $token,
+            'userinformation' => $userinformation,
+            'datas' => Socialmedialink::where('user_id', $userinformation->user_id)->get()
         ]);
     }
 
@@ -113,6 +114,19 @@ class RouteController extends Controller
            return view('components.authentication.fillresetpassword')->with(
             ['token' => $token, 'email' => $request->email ]);
         }
+    }
+
+    public function changepassword(){
+        $user = Auth()->user();
+        return view('pages.UserProfile.changepassword', [
+            'userinformation' => $user->userinformation
+        ]);
+
+    }
+
+    public function showaddsocialmedia()
+    {
+        return view ('pages.UserSocialmedias.add');
     }
 
 }
