@@ -43,7 +43,7 @@
                       <div>
                         <br>
                         <a>Add social media profiles:</a>
-                          <input name="socialmedialink[]" type="text" class="intro-x login__input input input--lg border border-gray-300 block mt-4" value="{{old('socialmedialink')}}" placeholder="Add socialmedia profile link">
+                          <input name="socialmedialink[]" type="url" class="intro-x login__input input input--lg border border-gray-300 block mt-4" value="{{old('socialmedialink')}}" placeholder="Add socialmedia profile link">
                           @error('socialmedialink')
                           <p class="text-red-500 text-xs mt-1"> {{$message}} </p>
                               @enderror

@@ -14,7 +14,7 @@
                                     <div>
                                       <br>
                                       <a>Add social media profiles:</a>
-                                        <input name="socialmedialink[]" type="text" class="intro-x login__input input input--lg border border-gray-300 block mt-4" value="{{old('socialmedialink')}}" placeholder="Add socialmedia profile link">
+                                        <input name="socialmedialink[]" type="url" class="intro-x login__input input input--lg border border-gray-300 block mt-4" value="{{old('socialmedialink')}}" placeholder="Add socialmedia profile link">
                                         @error('socialmedialink')
                                         <p class="text-red-500 text-xs mt-1"> {{$message}} </p>
                                             @enderror
@@ -22,10 +22,12 @@
                                      <button type="button" name="add" id="add" class="button xl:w-32 text-white bg-theme-1 xl:mr-3 align-top mt-2 btn btn-success">Add</button>
                                     </div>
                       </div>
-                   
+
                         <div class="intro-x mt-5 xl:mt-8 text-center xl:text-center">
                             <button name="save" id="save" type="submit" class="button button--lg w-full xl:w-32 text-white bg-theme-1 xl:mr-3 align-top">Save</button>
                         </form>
+                        <a href="{{route('showuserprofile', $userinformation->username)}}"><button class="button button--lg w-full xl:w-32 text-gray-700 border border-gray-300 dark:border-dark-5 dark:text-gray-300 mt-3 xl:mt-0 align-top">Cancel</button></a>
+
 
                         </div>
                     </div>

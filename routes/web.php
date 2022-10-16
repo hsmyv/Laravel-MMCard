@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RouteController;
+use App\Http\Controllers\SocialiteController;
 use App\Models\Userinformation;
 use App\Models\User;
 use App\Http\Controllers\ForgetPasswordController;
@@ -22,6 +23,7 @@ use App\Models\Post;
 Route::redirect('/', '/home');
 
 Route::get('/home', function(Userinformation $userinformation){
+
     return view('pages.home',
         ['userinformation' => $userinformation]
         );
@@ -36,13 +38,18 @@ Route::get('/home', function(Userinformation $userinformation){
     });
 
 
+    Route::controller(SocialiteController::class)->group(function(){
+        Route::get('/sign-in/github', 'github')->middleware('guest')->name('signGithub');
+        Route::get('/sign-in/github/redirect', 'githubRedirect')->middleware('guest')->name('githubRedirect');
+    });
+
     Route::controller(RouteController::class)->group(function(){
         //userAuthentication
         Route::get('/login', 'showlogin')->middleware('guest')->name('showlogin');
         Route::get('/registration', 'showregistration')->middleware('guest')->name('showregistration');
         //userProfile
         Route::get('/userprofile/{username}', 'showuserprofile')->middleware('auth')->name('showuserprofile');
-        Route::get('/userprofile/{username:username}/{token}/', 'publishprofile')->name('publishprofile');
+        Route::get('/userprofile/{username:username}/{token}', 'publishprofile')->name('publishprofile');
         Route::get('/changepassword', 'changepassword')->middleware('auth')->name('showchangepassword');
         Route::get('/socialmedialink', 'clicklink')->name('clicklink');
 

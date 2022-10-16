@@ -75,7 +75,7 @@ class UserController extends Controller
             'username' => 'required|unique:userinformations,username',
             'about' => 'required|max:250',
             'profilepicture' => 'file|mimes:jpg,png,img,jpeg',
-            'phone' => 'required|string|min:9|max:10',
+            'phone' => 'required|string|min:9|max:15',
         ]);
 
         $formfill['user_id'] = Auth()->id();
@@ -103,7 +103,7 @@ class UserController extends Controller
         $formfill = $request->validate([
             'username' => ['required', Rule::unique('userinformations', 'username')->ignore($userinformation->id)],
             'profilepicture' => 'image',
-            'phone' => 'required|string|min:9|max:10',
+            'phone' => 'required|string|min:9|max:15',
             'about' => 'required|max:250',
         ]);
 
@@ -113,7 +113,7 @@ class UserController extends Controller
 
         $userinformation->update($formfill);
 
-        return redirect()->route('showuserprofile', ['username' => $user->userinformation->username] )->with('success', 'Your post has been updated successfully');
+        return back()->with('success', 'Your account has been updated successfully');
     }
 
     public function editsocialmedialinks(Request $request){

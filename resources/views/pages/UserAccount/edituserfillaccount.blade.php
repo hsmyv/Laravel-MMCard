@@ -15,12 +15,12 @@
                                 <div>
                                     <div class="border border-gray-200 dark:border-dark-5 rounded-md p-5">
                                         <div class="w-40 h-40 relative image-fit cursor-pointer zoom-in mx-auto">
-                                            @if(file_exists(public_path().'/storage/'.$userinformation->profilepicture))
-                                            <img class="rounded-md" src="{{asset('storage/' .$userinformation->profilepicture)}}">
-                                            @else
+                                            @if(!file_exists(public_path().'/storage/'.$userinformation->profilepicture))
                                             <img class="rounded-md"  src="/dist/images/profile-6.jpg">
+                                            @else
+                                            <img class="rounded-md" src="{{asset('storage/' .$userinformation->profilepicture)}}">
                                             @endif
-                                            <div title="Remove this profile photo?" name="{{$userinformation->profilpicture}}" class="tooltip w-5 h-5 flex items-center justify-center absolute rounded-full text-white bg-theme-6 right-0 top-0 -mr-2 -mt-2 buttonlink"> <i data-feather="x" class="w-4 h-4"></i> </div>
+                                            <div title="Remove this profile photo?" name="{{$userinformation->profilepicture}}" class="tooltip w-5 h-5 flex items-center justify-center absolute rounded-full text-white bg-theme-6 right-0 top-0 -mr-2 -mt-2 buttonlink"> <i data-feather="x" class="w-4 h-4"></i> </div>
                                         </div>
                                         <div class="w-40 mx-auto cursor-pointer relative mt-5">
                                             <button type="button" class="button w-full bg-theme-1 text-white">Change Photo</button>
@@ -55,9 +55,9 @@
 
                     </div>
                         <div class="intro-x mt-5 xl:mt-8 text-center xl:text-center">
-                            <button name="save" id="save" type="submit" class="button button--lg w-full xl:w-32 text-white bg-theme-1 xl:mr-3 align-top btn btn-success">Edit</button>
+                            <button name="save" id="save" type="submit" class="button button--lg w-full xl:w-32 text-white bg-theme-1 xl:mr-3 align-top btn btn-success">Update</button>
                         </form>
-                        <a href="{{route('showuserprofile', $userinformation->username)}}"><button class="button button--lg w-full xl:w-32 text-gray-700 border border-gray-300 dark:border-dark-5 dark:text-gray-300 mt-3 xl:mt-0 align-top">Cancel</button></a>
+                        <a href="{{route('showuserprofile', $userinformation->username)}}"><button class="button button--lg w-full xl:w-32 text-gray-700 border border-gray-300 dark:border-dark-5 dark:text-gray-300 mt-3 xl:mt-0 align-top">Back</button></a>
 
 
                         </div>

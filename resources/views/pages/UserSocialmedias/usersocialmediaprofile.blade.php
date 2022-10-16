@@ -3,11 +3,6 @@
     <!-- BEGIN: Head -->
     <head>
         <meta charset="utf-8">
-        <link href="/dist/images/logo.svg" rel="shortcut icon">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="Midone admin is super flexible, powerful, clean & modern responsive tailwind admin template with unlimited possibilities.">
-        <meta name="keywords" content="admin template, Midone admin template, dashboard template, flat admin template, responsive admin template, web app">
-        <meta name="author" content="LEFT4CODE">
         <title>User Profile</title>
         <!-- BEGIN: CSS Assets-->
         <link rel="stylesheet" href="/dist/css/app.css" />
@@ -16,15 +11,24 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="{{asset('js/jquery-3.6.0.min.js')}}" type="text/javascript"></script>
+
+        <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+
+        <!-- Additional CSS Files -->
+        <link rel="stylesheet" href="/assets/css/fontawesome.css">
+        <link rel="stylesheet" href="/assets/css/templatemo-seo-dream.css">
+        <link rel="stylesheet" href="/assets/css/animated.css">
+        <link rel="stylesheet" href="/assets/css/owl.css">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
         <!-- END: CSS Assets-->
     </head>
     <body class="app">
         <div class="content">
             <!-- BEGIN: Top Bar -->
             <div class="top-bar">
-
   </div>
-
     <!-- BEGIN:  Information -->
     <div class="intro-y box lg:mt-5">
         <div class="flex items-center p-5 border-b border-gray-200 dark:border-dark-5">
@@ -66,21 +70,52 @@
         </div>
     </div>
 
-    <!-- END:  Information -->
-                <!-- END: Top Bar -->
-                <div class="intro-y flex items-center mt-8">
-                    <h2 class="text-lg font-medium mr-auto">
-                        My social medias profile
-                    </h2>
+
+    <!--Start: Corusuel -->
+    <div id="portfolio" class="our-portfolio section">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-5">
+              <div class="section-heading wow fadeInLeft" data-wow-duration="1s" data-wow-delay="0.3s">
+                <h6>Social Medias</h6>
+                <h2>My Social<em> Media Profiles</em></h2>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="container-fluid wow fadeIn" data-wow-duration="1s" data-wow-delay="0.7s">
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="loop owl-carousel">
+                @foreach ($datas as $data )
+                <div class="item">
+                  <div class="portfolio-item">
+                    <div class="thumb">
+                      <img src="/assets/images/facebook.avif" alt="">
+                      <div class="hover-content">
+                        <div class="inner-content">
+                          <a class="buttonlink" target="_blank" href="{{$data->socialmedialink}}" value="" id="{{$data->id}}"><h4>View</h4></a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <div class="grid grid-cols-12 gap-6">
-                    <div class="col-span-12 lg:col-span-8 xxl:col-span-9">
+                @endforeach
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+<!-- END: Corusuel-->
+
+
+
+    <!-- END:  Information -->
                         <!-- BEGIN: Social Media Link -->
                         <div class="intro-y box lg:mt-5">
                             <div class="flex items-center px-5 py-5 sm:py-3 border-b border-gray-200 dark:border-dark-5">
                                 <h2 class="font-medium text-base mr-auto">
                                     Social Media Links
-
                                 </h2>
                             </div>
                             <div class="p-5">
@@ -94,12 +129,8 @@
                                     <div class="text-gray-600 mr-5 sm:mr-5">{{$data->socialmedialink}}</div>
                                     </div>
                                     <div class="font-medium text-gray-700 dark:text-gray-500"></div>
-
                                 </div>
-
                                 @endforeach
-
-
                             </div>
                         </div>
                         <!-- END: Social Media Link -->
@@ -109,6 +140,7 @@
             </div>
             <!-- END: Content -->
         </div>
+
         <script>
 
             $( document ).ready(function(e) {
@@ -135,5 +167,14 @@
         <script src="https://maps.googleapis.com/maps/api/js?key=["your-google-map-api"]&libraries=places"></script>
         <script src="/dist/js/app.js"></script>
         <!-- END: JS Assets-->
+    <script src="/vendor/jquery/jquery.min.js"></script>
+  <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/assets/js/owl-carousel.js"></script>
+  <script src="/assets/js/animation.js"></script>
+  <script src="/assets/js/imagesloaded.js"></script>
+  <script src="/assets/js/custom.js"></script>
+
+
     </body>
 </html>
+

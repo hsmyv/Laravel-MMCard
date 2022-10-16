@@ -24,8 +24,6 @@
                             <p class="text-red-500 text-xs mt-1"> {{$message}} </p>
                                 @enderror
                          </div>
-                         <button type="button" name="add" id="add" class="button xl:w-32 text-white bg-theme-1 xl:mr-3 align-top mt-2 btn btn-success">Add</button>
-
                         </div>
 
 
@@ -43,24 +41,5 @@
             </div>
         </div>
 
-        <script type="text/javascript">
-
-        var i = 0;
-
-        $("#add").click(function(){
-
-            ++i;
-
-            $("#dynamicTable").append('<tr><td><input class="intro-x login__input input input--lg border border-gray-300 block mt-4 type="text" name="socialmedialink[]" placeholder="Add social media profile link" </td><td><button type="button" class="button button--lg w-full xl:w-25 text-gray-700 border border-gray-300 dark:border-dark-5 dark:text-gray-300 xl:mt-0  remove-tr">Remove</button></td></tr>');
-            });
-
-        $(document).on('click', '.remove-tr', function(){
-
-            $(this).parents('tr').remove();
-
-        });
-
-
-        </script>
 
     </x-authentication.layout>

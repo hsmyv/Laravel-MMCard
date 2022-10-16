@@ -6,10 +6,11 @@
                 Social Media Links
             </h2>
             <div class="font-medium text-gray-700 dark:text-gray-500">
-                <a href = "{{route('showeditsocialmedialinks', $userinformation->username)}}">
-                <button type="button" class="button button--sm block bg-theme-1 text-white">Edit</button></a>
+                <a href = "{{route('showAddSocialmedia')}}">
+                <button type="button" class="button button--sm block bg-theme-1 text-white">Add</button></a>
             </div>
         </div>
+
 
         <div class="p-5">
             @foreach ($socialmedialinks as $socialmedialink )
@@ -20,14 +21,15 @@
                 <div class="ml-4 mr-auto">
                     <a href="{{$socialmedialink->socialmedialink}}" class="font-medium">{{$socialmedialink->socialmedialink}}</a>
                     <div class="text-gray-600 mr-5 sm:mr-5">{{$socialmedialink->socialmedialink}}</div>
+
+
                 </div>
                     <form method="POST" action="{{route('deletesocialmedialink', $socialmedialink->id)}}">
                         @csrf
                         @method('DELETE')
-                        <div class="font-medium text-gray-700 dark:text-gray-500"><button class="button button--sm block bg-theme-1 text-white">Delete</button></div>
-                         <a href = "{{route('showAddSocialmedia')}}">
-                            <button type="button" class="button button--sm block bg-theme-1 text-white">Add</button></a>
-
+                        <div class="font-medium text-gray-700 dark:text-gray-500"><button>Delete</button></div>
+                        <a  href = "{{route('showeditsocialmedialinks', $userinformation->username)}}">
+                        <button type="button">Edit</button></a>
                     </form>
                 </div>
             @endforeach

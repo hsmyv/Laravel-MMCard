@@ -126,7 +126,10 @@ class RouteController extends Controller
 
     public function showaddsocialmedia()
     {
-        return view ('pages.UserSocialmedias.add');
+        $user = Auth()->user();
+        return view ('pages.UserSocialmedias.add', [
+            'userinformation' => $user->userinformation
+        ]);
     }
 
 }

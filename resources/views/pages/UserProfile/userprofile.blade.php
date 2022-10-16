@@ -1,4 +1,5 @@
 <x-UserProfile.layout>
+
               <div class="grid grid-cols-12 gap-6">
                     <!-- BEGIN: Profile Menu -->
                     <div class="col-span-12 lg:col-span-4 xxl:col-span-3 flex lg:block flex-col-reverse">
@@ -37,7 +38,6 @@
 
                                 </div>
                                 <div class="ml-4 mr-auto">
-
                                     <div class="font-medium text-base">{{$userinformation->username}}</div>
                                     <div class="text-gray-600">{{$userinformation->about}}</div>
                                 </div>
@@ -72,7 +72,7 @@
                         </div>
                         <div class="p-5 border-t border-gray-200 dark:border-dark-5">
 
-                   {!! QrCode::size(150)->generate(url('userprofile/'.$userinformation->username.'/'.$user->token)); !!}
+                 {!! QrCode::size(150)->generate(url('userprofile/'.$userinformation->username.'/'.$user->token)); !!}
 
                    <div>
                    <a class="flex items-center mt-5" ><i data-feather="box" class="w-4 h-4 mr-2"></i> Your Profile Link: </a>
