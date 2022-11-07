@@ -56,7 +56,7 @@ Route::get('/home', function(Userinformation $userinformation){
         //userAccount
         Route::get('/account/', 'showuserfillaccount')->middleware('auth')->name('showuserfillaccount');
         Route::get('/account/edit/{username}', 'showedituserfillaccount')->middleware('auth')->name('showedituserfillaccount');
-        Route::get('/socialmedias//edit/{username}', 'showeditsocialmedialinks')->middleware('auth')->name('showeditsocialmedialinks');
+        Route::get('/socialmedias/edit/{username}', 'showeditsocialmedialinks')->middleware('auth')->name('showeditsocialmedialinks');
         Route::get('/socialmedia/add', 'showaddsocialmedia')->middleware('auth')->name('showAddSocialmedia');
 
         //userForgotPassword
@@ -77,7 +77,7 @@ Route::get('/home', function(Userinformation $userinformation){
         //userAccount
         Route::post('/account', 'userfillaccount')->middleware('auth')->name('userfillaccount');
         Route::patch('/account/edit/{userinformation:username}', 'edituserfillaccount')->middleware('auth')->name('edituserfillaccount');
-        Route::post('/editsocialmedialinks/', 'editsocialmedialinks')->middleware('auth')->name('editsocialmedialinks');
+        Route::post('/socialmedias/edit/', 'editsocialmedialinks')->middleware('auth')->name('editsocialmedialinks');
         Route::delete('/socialmedias/delete/{socialmedialink}', 'deletesocialmedialink')->middleware('auth')->name('deletesocialmedialink');
         Route::post('/socialmedia/add', 'addsocialmedia')->middleware('auth')->name('AddSocialmedia');
 
