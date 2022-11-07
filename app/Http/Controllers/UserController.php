@@ -120,7 +120,6 @@ class UserController extends Controller
 
     public function editsocialmedialinks(Request $request){
             $user = Auth()->user();
-
                         foreach($request->estimates_adds as $key=>$items)
                         {
                             $estimates_adds['id']              = $request->estimates_adds[$key];
