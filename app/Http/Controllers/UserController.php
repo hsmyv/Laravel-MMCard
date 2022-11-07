@@ -69,19 +69,20 @@ class UserController extends Controller
     }
 
 
-    public function userfillaccount(Request $request){
+    public function userfillaccount(Request $request){ //burda problem var phone hissesinde
         $user = Auth()->user();
         $formfill = $request->validate([
-            'username' => 'required|unique:userinformations,username',
-            'about' => 'required|max:250',
-            'profilepicture' => 'file|mimes:jpg,png,img,jpeg',
-            'phone' => 'required|string|min:9|max:15',
+            'username'      => 'required|unique:userinformations,username',
+            'about'         => 'required|max:250',
+            'profilepicture'=> 'file|mimes:jpg,png,img,jpeg',
+            'phone'         => 'required'
         ]);
 
         $formfill['user_id'] = Auth()->id();
         if(isset($formfill['profilepicture'])){
             $formfill['profilepicture'] = request()->file('profilepicture')->store('profilepictures');
         }
+
 
         $socialmedia = $request->socialmedialink;
             for($i=0; $i < count($socialmedia); $i++){
@@ -94,7 +95,8 @@ class UserController extends Controller
                 DB::table('socialmedialinks')->insert($datasave);
             }
 
-        Userinformation::create($formfill);
+
+            Userinformation::create($formfill);
         return redirect()->route('showuserprofile', ['username' => $user->userinformation->username])->with('success', 'Your account has been created successfully');
     }
 

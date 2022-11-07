@@ -48,16 +48,16 @@ Route::get('/home', function(Userinformation $userinformation){
         Route::get('/login', 'showlogin')->middleware('guest')->name('showlogin');
         Route::get('/registration', 'showregistration')->middleware('guest')->name('showregistration');
         //userProfile
-        Route::get('/userprofile/{username}', 'showuserprofile')->middleware('auth')->name('showuserprofile');
-        Route::get('/userprofile/{username:username}/{token}', 'publishprofile')->name('publishprofile');
+        Route::get('/profile/{username}', 'showuserprofile')->middleware('auth')->name('showuserprofile');
+        Route::get('/profile/{username:username}/{token}', 'publishprofile')->name('publishprofile');
         Route::get('/changepassword', 'changepassword')->middleware('auth')->name('showchangepassword');
         Route::get('/socialmedialink', 'clicklink')->name('clicklink');
 
         //userAccount
-        Route::get('/userfillaccount/', 'showuserfillaccount')->middleware('auth')->name('showuserfillaccount');
-        Route::get('/edituserfillaccount/{username}/edit/', 'showedituserfillaccount')->middleware('auth')->name('showedituserfillaccount');
-        Route::get('/editsocialmedialinks/{username}/edit/', 'showeditsocialmedialinks')->middleware('auth')->name('showeditsocialmedialinks');
-        Route::get('/addsocialmedia', 'showaddsocialmedia')->middleware('auth')->name('showAddSocialmedia');
+        Route::get('/account/', 'showuserfillaccount')->middleware('auth')->name('showuserfillaccount');
+        Route::get('/account/edit/{username}', 'showedituserfillaccount')->middleware('auth')->name('showedituserfillaccount');
+        Route::get('/socialmedias//edit/{username}', 'showeditsocialmedialinks')->middleware('auth')->name('showeditsocialmedialinks');
+        Route::get('/socialmedia/add', 'showaddsocialmedia')->middleware('auth')->name('showAddSocialmedia');
 
         //userForgotPassword
         Route::get('/forgetpassword', 'showforgetpassword')->name('showforgetpassword');
@@ -75,11 +75,11 @@ Route::get('/home', function(Userinformation $userinformation){
         //userProfile
         Route::post('/changepassword', 'changepassword')->middleware('auth')->name('changepassword');
         //userAccount
-        Route::post('/userfillaccout', 'userfillaccount')->middleware('auth')->name('userfillaccount');
-        Route::patch('/edituserfillaccounts/{userinformation:username}', 'edituserfillaccount')->middleware('auth')->name('edituserfillaccount');
+        Route::post('/account', 'userfillaccount')->middleware('auth')->name('userfillaccount');
+        Route::patch('/account/edit/{userinformation:username}', 'edituserfillaccount')->middleware('auth')->name('edituserfillaccount');
         Route::post('/editsocialmedialinks/', 'editsocialmedialinks')->middleware('auth')->name('editsocialmedialinks');
-        Route::delete('/deletesocialmedialink/{socialmedialink}', 'deletesocialmedialink')->middleware('auth')->name('deletesocialmedialink');
-        Route::post('/addsocialmedia', 'addsocialmedia')->middleware('auth')->name('AddSocialmedia');
+        Route::delete('/socialmedias/delete/{socialmedialink}', 'deletesocialmedialink')->middleware('auth')->name('deletesocialmedialink');
+        Route::post('/socialmedia/add', 'addsocialmedia')->middleware('auth')->name('AddSocialmedia');
 
     });
 

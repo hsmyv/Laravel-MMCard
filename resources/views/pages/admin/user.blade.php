@@ -1,4 +1,4 @@
-<x-layout>
+<x-Admin.layout>
 
      <!-- END: Top Bar -->
      <h2 class="intro-y text-lg font-medium mt-10">
@@ -58,7 +58,7 @@
                 </div>
                 <div class="text-center lg:text-right p-5 border-t border-gray-200 dark:border-dark-5">
                     <button class="button button--sm text-white bg-theme-1 mr-2">Message</button>
-                    <button class="button button--sm text-gray-700 border border-gray-300 dark:border-dark-5 dark:text-gray-300">Profile</button>
+                    <button class="button button--sm text-gray-700 border border-gray-300 dark:border-dark-5 dark:text-gray-300"><a href="{{route('publishprofile',  ['username' => $userinformation->username, 'token' => $userinformation->user->token])}})}}">Profile</a></button>
                 </div>
             </div>
         </div>
@@ -99,4 +99,4 @@
 </div>
 
 
-</x-layout>
+</x-Admin.layout>

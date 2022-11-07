@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('username')->unique();
             $table->unsignedBigInteger('user_id')->constrained()->cascadeOnDelete();
-            $table->integer('phone');
+            $table->BigInteger('phone');
             $table->text('about');
             $table->string('profilepicture')->nullable();
             $table->timestamps();

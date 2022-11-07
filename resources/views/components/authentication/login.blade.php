@@ -5,10 +5,10 @@
                         <h2 class="intro-x font-bold text-2xl xl:text-3xl text-center xl:text-left">
                             Sign In
                         </h2>
-                        <div>or:</div>
-                        <a href="{{route('signGithub')}}">Github</a>
+                        <div><span class="text-black "><span class="font-medium">or:</span></span></div>
+                        <a href="{{route('signGithub')}}"><span class="text-black text-lg ml-1"><span class="font-medium">Github</span></span></a>
                         <div class="intro-x mt-2 text-gray-500 xl:hidden text-center">A few more clicks to sign in to your account. Manage all your social media accounts in one place</div>
-                        <div class="intro-x mt-8">
+                        <div class="intro-x mt-4">
                             <form method="POST" action="{{route('login')}}">
                                 @csrf
                                 <div>
