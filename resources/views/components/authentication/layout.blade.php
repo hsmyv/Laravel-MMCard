@@ -12,6 +12,7 @@
         <title>HSTUDIO</title>
         <!-- BEGIN: CSS Assets-->
         <link rel="stylesheet" href="/dist/css/app.css" />
+        <meta name="csrf-token" content="{{ csrf_token() }}">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <!-- Latest compiled JavaScript -->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>

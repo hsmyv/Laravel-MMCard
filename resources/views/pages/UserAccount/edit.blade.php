@@ -20,7 +20,7 @@
                                             @else
                                             <img class="rounded-md" src="{{asset('storage/' .$userinformation->profilepicture)}}">
                                             @endif
-                                            <div title="Remove this profile photo?" name="{{$userinformation->profilepicture}}" class="tooltip w-5 h-5 flex items-center justify-center absolute rounded-full text-white bg-theme-6 right-0 top-0 -mr-2 -mt-2 buttonlink"> <i data-feather="x" class="w-4 h-4"></i> </div>
+                                            <div id="remove" title="Remove this profile photo?" name="{{$userinformation->profilepicture}}" class="remove tooltip w-5 h-5 flex items-center justify-center absolute rounded-full text-white bg-theme-6 right-0 top-0 -mr-2 -mt-2 remove"> <i data-feather="x" class="w-4 h-4 remove"></i> </div>
                                         </div>
                                         <div class="w-40 mx-auto cursor-pointer relative mt-5">
                                             <button type="button" class="button w-full bg-theme-1 text-white">Change Photo</button>
@@ -66,4 +66,23 @@
                 <!-- END: Login Form -->
             </div>
         </div>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+                $("#remove").click(function(){
+                    $.ajax({
+                        /* the route pointing to the post function */
+                        url: '/pp/{{$userinformation->id}}/remove',
+                        type: 'POST',
+                        /* send the csrf-token and the input to the controller */
+                        data: {_token: CSRF_TOKEN, message:$(".getinfo").val()},
+                        dataType: 'JSON',
+                        /* remind that 'data' is the response of the AjaxController */
+                        success: function (data) {
+                            alert('bien');
+                        }
+                    });
+                });
+           }):
+        </script>
     </x-authentication.layout>

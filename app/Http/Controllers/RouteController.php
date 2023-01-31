@@ -41,13 +41,13 @@ class RouteController extends Controller
 
     //userAccount
     public function showuserfillaccount(){
-        return view('pages.UserAccount.userfillaccount');
+        return view('pages.UserAccount.account');
     }
 
     public function showedituserfillaccount(Request $request, User $user, Userinformation $userinformation){
         $id = Auth::user()->id;
         $user = User::find($id);
-        return view('pages.UserAccount.edituserfillaccount',  [
+        return view('pages.UserAccount.edit',  [
             'userinformation' => $userinformation,
             'userinformation' => Userinformation::where('user_id', $id)
             ->first(),
@@ -58,7 +58,7 @@ class RouteController extends Controller
     public function showeditsocialmedialinks(Request $request, User $user, Userinformation $userinformation){
         $id = Auth::user()->id;
         $user = User::find($id);
-        return view('pages.UserSocialmedias.editsocialmedialinks',  [
+        return view('pages.UserSocialmedias.links',  [
             'userinformation' => $userinformation,
             'userinformation' => Userinformation::where('user_id', $id)
             ->first(),
@@ -84,7 +84,7 @@ class RouteController extends Controller
 
         $userinformation = Userinformation::where('username', $username)->firstOrFail();
 
-        return view('pages.UserSocialmedias.usersocialmediaprofile', [
+        return view('pages.UserSocialmedias.profile', [
             'token' => $token,
             'userinformation' => $userinformation,
             'datas' => Socialmedialink::where('user_id', $userinformation->user_id)->get()
@@ -131,5 +131,7 @@ class RouteController extends Controller
             'userinformation' => $user->userinformation
         ]);
     }
+
+
 
 }

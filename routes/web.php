@@ -80,7 +80,7 @@ Route::get('/home', function(Userinformation $userinformation){
         Route::post('/socialmedias/edit/', 'editsocialmedialinks')->middleware('auth')->name('editsocialmedialinks');
         Route::delete('/socialmedias/delete/{socialmedialink}', 'deletesocialmedialink')->middleware('auth')->name('deletesocialmedialink');
         Route::post('/socialmedia/add', 'addsocialmedia')->middleware('auth')->name('AddSocialmedia');
-
+        Route::post('/pp/{id}/remove', 'removephoto')->name('removephoto');
     });
 
 

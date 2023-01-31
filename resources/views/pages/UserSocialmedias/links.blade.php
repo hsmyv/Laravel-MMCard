@@ -40,6 +40,4 @@
                 <!-- END: Login Form -->
             </div>
         </div>
-
-
     </x-authentication.layout>

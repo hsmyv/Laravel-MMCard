@@ -9,9 +9,9 @@
                                     <div class="intro-x dropdown w-8 h-8">
                                         <div class="dropdown-toggle w-8 h-8 rounded-full overflow-hidden shadow-lg image-fit zoom-in">
                                             @if(file_exists(public_path().'/storage/'.$userinformation->profilepicture))
-                                            <img src="{{ asset('storage/'.$userinformation->profilepicture )}}">
+                                                <img class="rounded-md" src="/dist/images/profile-6.jpg">
                                             @else
-                                            <img class="rounded-md" src="/dist/images/profile-6.jpg">
+                                                <img src="{{ asset('storage/'.$userinformation->profilepicture )}}">
                                             @endif
                                         </div>
                                         <div class="dropdown-box w-56">

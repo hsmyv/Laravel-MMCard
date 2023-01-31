@@ -71,6 +71,7 @@ class UserController extends Controller
 
     public function userfillaccount(Request $request){ //burda problem var phone hissesinde
         $user = Auth()->user();
+        $hasAccount = Userinformation::where('user_id' , $user->id)->first();
         $formfill = $request->validate([
             'username'      => 'required|unique:userinformations,username',
             'about'         => 'required|max:250',
@@ -91,13 +92,31 @@ class UserController extends Controller
                     'views' => 0,
                     'socialmedialink' => $socialmedia[$i]
                 ];
+                    if(!$hasAccount)
+                    {
+                        DB::table('socialmedialinks')->insert($datasave);
+                    }
 
-                DB::table('socialmedialinks')->insert($datasave);
+
+
             }
 
 
-            Userinformation::create($formfill);
-        return redirect()->route('showuserprofile', ['username' => $user->userinformation->username])->with('success', 'Your account has been created successfully');
+            if($hasAccount)
+            {
+                return back()->with('success', 'Your have already account');
+            }
+            else{
+
+                Userinformation::create($formfill);
+                return redirect()->route('showuserprofile', ['username' => $user->userinformation->username])->with('success', 'Your account has been created successfully');
+            }
+
+
+
+
+
+
     }
 
     public function edituserfillaccount(Request $request, Userinformation $userinformation ){
@@ -186,5 +205,9 @@ class UserController extends Controller
         return redirect()->route('showuserprofile', ['username' => $user->userinformation->username])->with('success', 'Social media profile has been added successfully');
     }
 
+    public function removephoto()
+    {
+       
+    }
 }
 
